@@ -27,7 +27,7 @@ def sendMessage(String hook, String color, String message) {
                        "author_name": "Build ${currentBuild.result}",
                        "title": "Build No: ${currentBuild.number}",
                        "title_link": "${currentBuild.absoluteUrl}",
-                       "text": "$message - ${currentBuild.changeSets}",
+                       "text": "$message - ${currentBuild.changeSets.collect({ it.items.collect { it.author } })}",
                     }
                 ]
             }'
