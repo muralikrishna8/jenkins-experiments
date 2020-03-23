@@ -17,6 +17,14 @@ def successMessage(String hook) {
     sendMessage(hook, SUCCESS_COLOR, SUCCESS_MESSAGE)
 }
 
+def getChanges() {
+   return currentBuild.changeSets.collect({
+       it.items.collect {
+           "${it.author} - ${it.msg}"
+       }
+   }).join('\n')
+}
+
 def sendMessage(String hook, String color, String message) {
     sh """curl -X POST \
             $hook \
@@ -28,7 +36,7 @@ def sendMessage(String hook, String color, String message) {
                        "title": "Build No: ${currentBuild.number}",
                        "title_link": "${currentBuild.absoluteUrl}",
                        "text": "$message - ${currentBuild.changeSets.collect({ it.items.collect { it.author } })}",
-                       "pretext": "${env.CHANGE_AUTHOR} - ${env.CHANGE_AUTHOR_DISPLAY_NAME} - ${env.CHANGE_TITLE}"
+                       "pretext": "${getChanges()}"
                     }
                 ]
             }'
