@@ -1,0 +1,41 @@
+def slack
+
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'SLACK_HOOK', defaultValue: '')
+    }
+
+    stages {
+        stage('Setup') {
+            steps {
+                script {
+                    slack = load 'src/io/jenkins/vars/slack.groovy'
+                }
+            }
+        }
+        stage('Echo') {
+            steps {
+                echo 'hello World'
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                def message = "🚀🚀 Well Done"
+                echo message
+                slack.sendMessage(params.SLACK_HOOK, message)
+            }
+        }
+        failure {
+            script {
+                def message = "🔥🔥🔥🔥Didn't expect this from you🔥🔥🔥🔥"
+                echo message
+                slack.sendMessage(params.SLACK_HOOK, message)
+            }
+        }
+    }
+}
