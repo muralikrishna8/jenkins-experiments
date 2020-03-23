@@ -1,4 +1,4 @@
-def slack
+@Library('slack@master') _
 
 pipeline {
     agent any
@@ -8,13 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Setup') {
-            steps {
-                script {
-                    slack = load 'src/io/jenkins/vars/slack.groovy'
-                }
-            }
-        }
         stage('Echo') {
             steps {
                 echo 'hello World'
@@ -27,7 +20,7 @@ pipeline {
             script {
                 def message = "🚀🚀 Well Done"
                 echo message
-                slack.sendMessage(params.SLACK_HOOK, message)
+                slack.sendMessage params.SLACK_HOOK, message
             }
         }
         failure {
