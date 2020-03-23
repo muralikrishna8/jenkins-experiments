@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Echo') {
+            steps {
+                echo 'hello World'
+            }
+        }
+
+        stage('Parallel') {
+            parallel {
+                stage("parallel1") {
+                    steps {
+                        echo 'par 1'
+                    }
+
+                    post {
+                        always {
+                            echo 'afer par1'
+                        }
+                    }
+                }
+                stage("parallel2") {
+                    steps {
+                        echo 'par 2'
+                    }
+
+                    post {
+                        always {
+                            echo 'afer par1'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo "🔥🔥🔥🔥Didn't expect this from you🔥🔥🔥🔥"
+        }
+    }
+}
+
