@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Echo') {
+            steps {
+                echo 'hello World'
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo "🔥🔥🔥🔥Didn't expect this from you🔥🔥🔥🔥"
+        }
+    }
+}
