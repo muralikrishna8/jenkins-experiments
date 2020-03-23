@@ -28,6 +28,7 @@ def sendMessage(String hook, String color, String message) {
                        "title": "Build No: ${currentBuild.number}",
                        "title_link": "${currentBuild.absoluteUrl}",
                        "text": "$message - ${currentBuild.changeSets.collect({ it.items.collect { it.author } })}",
+                       "pretext": "${env.CHANGE_AUTHOR} - ${env.CHANGE_AUTHOR_DISPLAY_NAME} - ${env.CHANGE_TITLE}"
                     }
                 ]
             }'
