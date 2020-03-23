@@ -38,5 +38,5 @@ def sendMessage(String hook, String color, String message) {
 def getChanges() {
     return currentBuild.changeSets.collect({
         it.items.collect { "${it.author} - ${it.msg}" }
-    }).join('\n')
+    }).flatten().join('\n')
 }
