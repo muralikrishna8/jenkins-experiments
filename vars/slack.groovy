@@ -4,7 +4,7 @@ import groovy.transform.Field
 @Field private final String SUCCESS_COLOR = "#36a64f"
 
 @Field
-private final String ERROR_MESSAGE = ":fire: Failed big time... :fire:"
+private final String ERROR_MESSAGE = ":fire: Nooo!!! Failed big time... :fire:"
 
 @Field
 private final String SUCCESS_MESSAGE = ":rocket: BOOM!! Now you are live... :rocket:"
@@ -15,6 +15,24 @@ def failureMessage(String hook) {
 
 def successMessage(String hook) {
     sendMessage(hook, SUCCESS_COLOR, SUCCESS_MESSAGE)
+}
+
+def fixedMessage(String hook) {
+    sh """curl -X POST \
+            $hook \
+            -d '{
+                "attachments": [
+                    {
+                        "color": "$SUCCESS_COLOR",
+                        "author_name": "${env.JOB_BASE_NAME} - ${currentBuild.result}",
+                        "title": "Build No: ${currentBuild.number}",
+                        "title_link": "${currentBuild.absoluteUrl}",
+                        "text": "ufff... :green_heart: Previous(#${currentBuild.previousBuild.number}) build got fixed now :green_heart:"
+                    }
+                ]
+            }'
+        
+    """
 }
 
 def sendMessage(String hook, String color, String message) {

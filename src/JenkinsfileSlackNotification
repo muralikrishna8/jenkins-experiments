@@ -23,6 +23,11 @@ pipeline {
                 slack.successMessage params.SLACK_HOOK
             }
         }
+        fixed {
+           script {
+               slack.fixedMessage params.SLACK_HOOK
+           }
+        }
         failure {
             script {
                 def message = "🔥🔥🔥🔥Didn't expect this from you🔥🔥🔥🔥"
