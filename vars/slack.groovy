@@ -25,9 +25,9 @@ def fixedMessage(String hook) {
                     {
                         "color": "$SUCCESS_COLOR",
                         "author_name": "${env.JOB_BASE_NAME} - ${currentBuild.result}",
-                        "title": "Build No: ${currentBuild.number}",
+                        "title": "Build: ${currentBuild.displayName}",
                         "title_link": "${currentBuild.absoluteUrl}",
-                        "text": "ufff... :green_heart: Previous(#${currentBuild.previousBuild.number}) build got fixed now :green_heart:"
+                        "text": "ufff... :green_heart: Previous(${currentBuild.previousBuild.displayName}) build got fixed now :green_heart:"
                     }
                 ]
             }'
@@ -43,7 +43,7 @@ def sendMessage(String hook, String color, String message) {
                     {
                        "color": "$color",
                        "author_name": "${env.JOB_BASE_NAME} - ${currentBuild.result}",
-                       "title": "Build No: ${currentBuild.number}",
+                       "title": "Build: ${currentBuild.displayName}",
                        "title_link": "${currentBuild.absoluteUrl}",
                        "text": "$message",
                        "pretext": "${getChanges()}"
