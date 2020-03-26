@@ -9,15 +9,15 @@ private final String ERROR_MESSAGE = ":fire: Nooo!!! Failed big time... :fire:"
 @Field
 private final String SUCCESS_MESSAGE = ":rocket: BOOM!! Now you are live... :rocket:"
 
-def failureMessage(String hook) {
+def sendFailureMessage(String hook) {
     sendMessage(hook, ERROR_COLOR, ERROR_MESSAGE)
 }
 
-def successMessage(String hook) {
+def sendSuccessMessage(String hook) {
     sendMessage(hook, SUCCESS_COLOR, SUCCESS_MESSAGE)
 }
 
-def fixedMessage(String hook) {
+def sendFixedMessage(String hook) {
     sh """curl -X POST \
             $hook \
             -d '{
