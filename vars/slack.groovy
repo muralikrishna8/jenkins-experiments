@@ -27,7 +27,7 @@ def sendFixedMessage(String hook) {
                         "author_name": "${env.JOB_BASE_NAME} - ${currentBuild.result}",
                         "title": "Build: ${currentBuild.displayName}",
                         "title_link": "${currentBuild.absoluteUrl}",
-                        "text": "ufff... :green_heart: Previous(${currentBuild.previousBuild.displayName}) build got fixed now :green_heart:"
+                        "text": "ufff... :green_heart: Previous(${currentBuild.previousBuild?.displayName}) build got fixed now :green_heart:"
                     }
                 ]
             }'
